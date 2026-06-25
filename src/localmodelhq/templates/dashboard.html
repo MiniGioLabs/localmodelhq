@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}LocalModel HQ — Dashboard{% endblock %}
+{% block content %}
+
+<!-- Recommendations -->
+{% if recommendations %}
+<div class="mb-8">
+    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">⭐ Recommended for Your Hardware</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {% for rec in recommendations %}
+        <div class="bg-gray-900 border border-brand/30 rounded-xl p-4">
+            <p class="text-xs text-brand font-medium">{{ rec.recommendation }}</p>
+            <p class="text-sm font-bold mt-1">{{ rec.name }}</p>
+            <p class="text-xs text-gray-400 mt-0.5">{{ rec.params }} · {{ rec.explanation }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Hardware -->
+{% include "partials/_hardware.html" %}
+
+<!-- Compatibility List -->
+<div class="mt-8">
+    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">📦 Available Models</h2>
+    <div class="space-y-2">
+        {% for model in catalog %}
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 flex items-center justify-between">
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium">{{ model.name }}</span>
+                    <span class="text-xs px-1.5 py-0.5 rounded-full 
+                        {% if model.rating == 'Excellent' %}bg-green-900/50 text-green-400
+                        {% elif model.rating == 'Good' %}bg-blue-900/50 text-blue-400
+                        {% elif model.rating == 'CPU Only' %}bg-yellow-900/50 text-yellow-400
+                        {% else %}bg-red-900/50 text-red-400{% endif %}">
+                        {{ model.rating }}
+                    </span>
+                    <span class="text-xs text-gray-500">{{ model.params }}</span>
+                    <span class="text-xs px-1.5 py-0.5 bg-gray-800 rounded">{{ model.category }}</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-0.5">{{ model.description }}</p>
+                <p class="text-xs text-gray-600 mt-0.5">{{ model.explanation }}</p>
+            </div>
+            <div class="flex items-center gap-2 ml-3 shrink-0">
+                {% set tag_id = model.tag|replace(':','-')|replace('.','-') %}
+                {% if model.tag in installed_tags %}
+                    <span class="text-xs text-green-400">✓ Installed</span>
+                    <form hx-post="/models/benchmark" hx-target="#bench-result-{{ tag_id }}" hx-swap="innerHTML" class="inline">
+                        <input type="hidden" name="model_tag" value="{{ model.tag }}">
+                        <input type="hidden" name="model_name" value="{{ model.name }}">
+                        <input type="hidden" name="category" value="{{ model.category }}">
+                        <button type="submit" class="text-xs bg-brand/20 text-brand px-2 py-1 rounded-lg hover:bg-brand/30">
+                            ⚡ Benchmark
+                        </button>
+                    </form>
+                    <form hx-post="/models/delete" hx-swap="outerHTML" class="inline">
+                        <input type="hidden" name="model_tag" value="{{ model.tag }}">
+                        <button type="submit" class="text-xs text-gray-500 hover:text-red-400 px-2 py-1">🗑</button>
+                    </form>
+                {% else %}
+                    <form hx-post="/models/pull" hx-target="#pull-{{ tag_id }}" hx-swap="innerHTML" class="inline">
+                        <input type="hidden" name="model_tag" value="{{ model.tag }}">
+                        <button type="submit" class="text-xs bg-brand text-white px-3 py-1.5 rounded-lg hover:bg-brand-dark">
+                            ⬇ Install
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <div id="pull-{{ tag_id }}"></div>
+        <div id="bench-result-{{ tag_id }}" class="ml-4"></div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Benchmark History -->
+{% if history %}
+<div class="mt-8">
+    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">📊 Recent Benchmarks</h2>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+        <table class="w-full text-xs">
+            <thead class="bg-gray-800/50">
+                <tr>
+                    <th class="text-left p-3 text-gray-400">Model</th>
+                    <th class="text-left p-3 text-gray-400">Category</th>
+                    <th class="text-right p-3 text-gray-400">Tok/s</th>
+                    <th class="text-right p-3 text-gray-400">Duration</th>
+                    <th class="text-right p-3 text-gray-400">First Token</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in history[:10] %}
+                <tr class="border-t border-gray-800">
+                    <td class="p-3 font-medium">{{ r.model_name[:25] }}</td>
+                    <td class="p-3 text-gray-400">{{ r.category }}</td>
+                    <td class="p-3 text-right {% if r.tokens_per_sec > 20 %}text-green-400{% else %}text-gray-400{% endif %}">{{ r.tokens_per_sec }}</td>
+                    <td class="p-3 text-right text-gray-400">{{ (r.duration_ms/1000)|round(1) }}s</td>
+                    <td class="p-3 text-right text-gray-400">{{ r.first_token_ms|int }}ms</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% if not hw.ollama_running %}
+<div class="mt-8 bg-yellow-900/20 border border-yellow-800 rounded-xl p-4">
+    <p class="text-sm text-yellow-400">⚠ Ollama is not running. <a href="https://ollama.com" class="underline" target="_blank">Install Ollama</a> to get started.</p>
+</div>
+{% endif %}
+
+{% endblock %}

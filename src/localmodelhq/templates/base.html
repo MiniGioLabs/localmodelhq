@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LocalModel HQ{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:'#6366f1','brand-dark':'#4f46e5'}}}}</script>
+    <style>.htmx-indicator{opacity:0;transition:opacity 0.2s}.htmx-request .htmx-indicator{opacity:1}</style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen antialiased">
+    <nav class="border-b border-gray-800 bg-gray-900/50 backdrop-blur">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="text-lg font-bold text-brand">🖥 LocalModel HQ</a>
+            <span class="text-xs text-gray-500">MiniGioLabs</span>
+        </div>
+    </nav>
+    <main class="max-w-6xl mx-auto px-4 py-6">{% block content %}{% endblock %}</main>
+    <footer class="text-center text-gray-600 text-xs py-6 border-t border-gray-800">LocalModel HQ — MiniGioLabs</footer>
+</body>
+</html>

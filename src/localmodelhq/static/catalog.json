@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Llama 3.2 3B",
+    "tag": "llama3.2:3b",
+    "params": "3B",
+    "ram_gb": 8,
+    "vram_gb": 4,
+    "category": "Chat",
+    "use_case": "General chat, light coding",
+    "description": "Meta's efficient 3B model. Runs on most consumer hardware."
+  },
+  {
+    "name": "Llama 3.2 1B",
+    "tag": "llama3.2:1b",
+    "params": "1B",
+    "ram_gb": 4,
+    "vram_gb": 2,
+    "category": "Chat",
+    "use_case": "Ultra-light chat, edge devices",
+    "description": "Tiny but capable. Great for Raspberry Pi and low-RAM machines."
+  },
+  {
+    "name": "Llama 3.1 8B",
+    "tag": "llama3.1:8b",
+    "params": "8B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Chat",
+    "use_case": "General purpose, strong reasoning",
+    "description": "Versatile 8B model. Solid all-rounder for most tasks."
+  },
+  {
+    "name": "Qwen 2.5 Coder 7B",
+    "tag": "qwen2.5-coder:7b",
+    "params": "7B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Coding",
+    "use_case": "Code generation, refactoring",
+    "description": "Specialized coding model. Strong at Python, JS, and system design."
+  },
+  {
+    "name": "Qwen 2.5 7B",
+    "tag": "qwen2.5:7b",
+    "params": "7B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Chat",
+    "use_case": "Chat, reasoning, creative writing",
+    "description": "Alibaba's flagship 7B. Excellent Chinese and English performance."
+  },
+  {
+    "name": "Mistral 7B",
+    "tag": "mistral:7b",
+    "params": "7B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Chat",
+    "use_case": "Fast inference, good chat",
+    "description": "Fast and efficient 7B. Great for quick responses."
+  },
+  {
+    "name": "DeepSeek Coder V2 16B",
+    "tag": "deepseek-coder-v2:16b",
+    "params": "16B",
+    "ram_gb": 24,
+    "vram_gb": 16,
+    "category": "Coding",
+    "use_case": "Advanced code generation",
+    "description": "16B coding specialist. Exceptional at multi-file projects."
+  },
+  {
+    "name": "Phi-3.5 Mini 3.8B",
+    "tag": "phi3.5:3.8b",
+    "params": "3.8B",
+    "ram_gb": 8,
+    "vram_gb": 4,
+    "category": "Chat",
+    "use_case": "Lightweight reasoning",
+    "description": "Microsoft's compact reasoning model. Punches above its weight class."
+  },
+  {
+    "name": "Gemma 2 9B",
+    "tag": "gemma2:9b",
+    "params": "9B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Chat",
+    "use_case": "Strong reasoning, instruction following",
+    "description": "Google's open model. Excellent instruction following and safety."
+  },
+  {
+    "name": "CodeGemma 7B",
+    "tag": "codegemma:7b",
+    "params": "7B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Coding",
+    "use_case": "Code completion, fill-in-the-middle",
+    "description": "Google's code-specialized model. Great for IDE integration."
+  },
+  {
+    "name": "Llama 3.1 70B",
+    "tag": "llama3.1:70b",
+    "params": "70B",
+    "ram_gb": 48,
+    "vram_gb": 40,
+    "category": "Chat",
+    "use_case": "Enterprise-grade reasoning",
+    "description": "Heavyweight 70B. Needs serious hardware but delivers top-tier results."
+  },
+  {
+    "name": "Mixtral 8x7B",
+    "tag": "mixtral:8x7b",
+    "params": "47B",
+    "ram_gb": 32,
+    "vram_gb": 24,
+    "category": "Chat",
+    "use_case": "MoE architecture, strong multitask",
+    "description": "Mixture of Experts. Efficient routing, strong across many domains."
+  },
+  {
+    "name": "Nomic Embed Text",
+    "tag": "nomic-embed-text",
+    "params": "137M",
+    "ram_gb": 2,
+    "vram_gb": 1,
+    "category": "Embeddings",
+    "use_case": "Semantic search, RAG",
+    "description": "Lightweight embedding model. Perfect for vector search pipelines."
+  },
+  {
+    "name": "LLaVA 7B",
+    "tag": "llava:7b",
+    "params": "7B",
+    "ram_gb": 16,
+    "vram_gb": 8,
+    "category": "Vision",
+    "use_case": "Image understanding, OCR",
+    "description": "Vision-language model. Describes images and answers visual questions."
+  }
+]
